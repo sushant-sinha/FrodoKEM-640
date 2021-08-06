@@ -1,0 +1,809 @@
+Intel(R) Advisor can now assist with vectorization and show optimization
+  report messages with your source code.
+See "https://software.intel.com/en-us/intel-advisor-xe" for details.
+
+Intel(R) C Intel(R) 64 Compiler Classic for applications running on Intel(R) 64, Version 2021.1.2 Build 20201208_000000
+
+Compiler options: -I/include -I/usr/include -pg -g -ldl -Ofast -qopenmp -qopt-report=5 -Wall -std=gnu11 -Wextra -DNIX -D _AMD64_ -D _REFERENCE_ -D _AES128_FOR_A_ -D _USE_OPENSSL_ -L./frodo -lfrodo_for_testing -lm -L/usr/lib -lssl -lcrypto -qopenmp -o frodo/PQCtestKAT_kem
+
+    Report from: Interprocedural optimizations [ipo]
+
+  WHOLE PROGRAM (SAFE) [EITHER METHOD]: false
+  WHOLE PROGRAM (SEEN) [TABLE METHOD]: false
+  WHOLE PROGRAM (READ) [OBJECT READER METHOD]: false
+
+INLINING OPTION VALUES:
+  -inline-factor: 100
+  -inline-min-size: 30
+  -inline-max-size: 230
+  -inline-max-total-size: 2000
+  -inline-max-per-routine: 10000
+  -inline-max-per-compile: 500000
+
+In the inlining report below:
+   "sz" refers to the "size" of the routine. The smaller a routine's size,
+      the more likely it is to be inlined.
+   "isz" refers to the "inlined size" of the routine. This is the amount
+      the calling routine will grow if the called routine is inlined into it.
+      The compiler generally limits the amount a routine can grow by having
+      routines inlined into it.
+
+Begin optimization report for: main()
+
+    Report from: Interprocedural optimizations [ipo]
+
+INLINE REPORT: (main()) [1/4=25.0%] tests/PQCtestKAT_kem.c(28,8)
+  -> EXTERN: (38,2) sprintf(char *__restrict__, const char *__restrict__, ...)
+  -> EXTERN: (39,17) fopen(const char *__restrict__, const char *__restrict__)
+  -> EXTERN: (40,3) printf(const char *__restrict__, ...)
+  -> EXTERN: (44,2) printf(const char *__restrict__, ...)
+  -> INLINE: (47,8) FindMarker(FILE *, const char *) (isz = 79) (sz = 91)
+    -> EXTERN: (140,13) strlen(const char *)
+    -> EXTERN: (145,15) fgetc(FILE *)
+    -> EXTERN: (153,9) strncmp(const char *, const char *, size_t)
+    -> EXTERN: (158,15) fgetc(FILE *)
+  -> INLINE: (47,8) FindMarker(FILE *, const char *) (isz = 79) (sz = 91)
+    -> EXTERN: (140,13) strlen(const char *)
+    -> EXTERN: (145,15) fgetc(FILE *)
+    -> EXTERN: (153,9) strncmp(const char *, const char *, size_t)
+    -> EXTERN: (158,15) fgetc(FILE *)
+  -> EXTERN: (48,8) fscanf(FILE *__restrict__, const char *__restrict__, ...)
+  -> INLINE: (57,9) ReadHex(FILE *, unsigned char *, int, char *) (isz = 195) (sz = 210)
+    -> EXTERN: (181,2) memset(void *, int, size_t)
+    -> INLINE: (183,7) FindMarker(FILE *, const char *) (isz = 79) (sz = 91)
+      -> EXTERN: (140,13) strlen(const char *)
+      -> EXTERN: (145,15) fgetc(FILE *)
+      -> EXTERN: (153,9) strncmp(const char *, const char *, size_t)
+      -> EXTERN: (158,15) fgetc(FILE *)
+    -> EXTERN: (184,17) fgetc(FILE *)
+    -> EXTERN: (184,17) fgetc(FILE *)
+    -> EXTERN: (185,10) __ctype_b_loc(void)
+  -> EXTERN: (58,4) printf(const char *__restrict__, ...)
+  -> EXTERN: (62,3) randombytes_init(unsigned char *, unsigned char *, int)
+  -> EXTERN: (65,19) crypto_kem_keypair(unsigned char *, unsigned char *)
+  -> EXTERN: (66,4) printf(const char *__restrict__, ...)
+  -> INLINE: (69,9) ReadHex(FILE *, unsigned char *, int, char *) (isz = 195) (sz = 210)
+    -> EXTERN: (181,2) memset(void *, int, size_t)
+    -> INLINE: (183,7) FindMarker(FILE *, const char *) (isz = 79) (sz = 91)
+      -> EXTERN: (140,13) strlen(const char *)
+      -> EXTERN: (145,15) fgetc(FILE *)
+      -> EXTERN: (153,9) strncmp(const char *, const char *, size_t)
+      -> EXTERN: (158,15) fgetc(FILE *)
+    -> EXTERN: (184,17) fgetc(FILE *)
+    -> EXTERN: (184,17) fgetc(FILE *)
+    -> EXTERN: (185,10) __ctype_b_loc(void)
+  -> EXTERN: (70,4) printf(const char *__restrict__, ...)
+  -> INLINE: (73,9) ReadHex(FILE *, unsigned char *, int, char *) (isz = 195) (sz = 210)
+    -> EXTERN: (181,2) memset(void *, int, size_t)
+    -> INLINE: (183,7) FindMarker(FILE *, const char *) (isz = 79) (sz = 91)
+      -> EXTERN: (140,13) strlen(const char *)
+      -> EXTERN: (145,15) fgetc(FILE *)
+      -> EXTERN: (153,9) strncmp(const char *, const char *, size_t)
+      -> EXTERN: (158,15) fgetc(FILE *)
+    -> EXTERN: (184,17) fgetc(FILE *)
+    -> EXTERN: (184,17) fgetc(FILE *)
+    -> EXTERN: (185,10) __ctype_b_loc(void)
+  -> EXTERN: (74,4) printf(const char *__restrict__, ...)
+  -> EXTERN: (78,7) memcmp(const void *, const void *, size_t)
+  -> EXTERN: (79,4) printf(const char *__restrict__, ...)
+  -> EXTERN: (82,7) memcmp(const void *, const void *, size_t)
+  -> EXTERN: (83,4) printf(const char *__restrict__, ...)
+  -> EXTERN: (87,19) crypto_kem_enc(unsigned char *, unsigned char *, const unsigned char *)
+  -> EXTERN: (88,4) printf(const char *__restrict__, ...)
+  -> INLINE: (92,9) ReadHex(FILE *, unsigned char *, int, char *) (isz = 195) (sz = 210)
+    -> EXTERN: (181,2) memset(void *, int, size_t)
+    -> INLINE: (183,7) FindMarker(FILE *, const char *) (isz = 79) (sz = 91)
+      -> EXTERN: (140,13) strlen(const char *)
+      -> EXTERN: (145,15) fgetc(FILE *)
+      -> EXTERN: (153,9) strncmp(const char *, const char *, size_t)
+      -> EXTERN: (158,15) fgetc(FILE *)
+    -> EXTERN: (184,17) fgetc(FILE *)
+    -> EXTERN: (184,17) fgetc(FILE *)
+    -> EXTERN: (185,10) __ctype_b_loc(void)
+  -> EXTERN: (93,4) printf(const char *__restrict__, ...)
+  -> INLINE: (96,9) ReadHex(FILE *, unsigned char *, int, char *) (isz = 195) (sz = 210)
+    -> EXTERN: (181,2) memset(void *, int, size_t)
+    -> INLINE: (183,7) FindMarker(FILE *, const char *) (isz = 79) (sz = 91)
+      -> EXTERN: (140,13) strlen(const char *)
+      -> EXTERN: (145,15) fgetc(FILE *)
+      -> EXTERN: (153,9) strncmp(const char *, const char *, size_t)
+      -> EXTERN: (158,15) fgetc(FILE *)
+    -> EXTERN: (184,17) fgetc(FILE *)
+    -> EXTERN: (184,17) fgetc(FILE *)
+    -> EXTERN: (185,10) __ctype_b_loc(void)
+  -> EXTERN: (97,4) printf(const char *__restrict__, ...)
+  -> EXTERN: (101,7) memcmp(const void *, const void *, size_t)
+  -> EXTERN: (102,4) printf(const char *__restrict__, ...)
+  -> EXTERN: (105,7) memcmp(const void *, const void *, size_t)
+  -> EXTERN: (106,4) printf(const char *__restrict__, ...)
+  -> EXTERN: (110,19) crypto_kem_dec(unsigned char *, const unsigned char *, const unsigned char *)
+  -> EXTERN: (111,4) printf(const char *__restrict__, ...)
+  -> EXTERN: (115,8) memcmp(const void *, const void *, size_t)
+  -> EXTERN: (116,4) printf(const char *__restrict__, ...)
+  -> EXTERN: (122,2) fclose(FILE *)
+  -> EXTERN: (123,2) printf(const char *__restrict__, ...)
+  -> EXTERN: (124,2) printf(const char *__restrict__, ...)
+
+
+    Report from: Loop nest, Vector & Auto-parallelization optimizations [loop, vec, par]
+
+
+LOOP BEGIN at tests/PQCtestKAT_kem.c(144,2) inlined into tests/PQCtestKAT_kem.c(47,8)
+   remark #15520: loop was not vectorized: loop with multiple exits cannot be vectorized unless it meets search loop idiom criteria   [ tests/PQCtestKAT_kem.c(147,3) ]
+LOOP END
+
+LOOP BEGIN at tests/PQCtestKAT_kem.c(150,2) inlined into tests/PQCtestKAT_kem.c(47,8)
+   remark #15521: loop was not vectorized: loop control variable was not identified. Explicitly compute the iteration count before executing the loop or try using canonical loop form from OpenMP specification
+
+   LOOP BEGIN at tests/PQCtestKAT_kem.c(156,3) inlined into tests/PQCtestKAT_kem.c(47,8)
+      remark #15389: vectorization support: reference line[i] has unaligned access   [ tests/PQCtestKAT_kem.c(157,4) ]
+      remark #15389: vectorization support: reference line[i+1] has unaligned access   [ tests/PQCtestKAT_kem.c(157,14) ]
+      remark #15381: vectorization support: unaligned access used inside loop body
+      remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+      remark #15305: vectorization support: vector length 2
+      remark #15399: vectorization support: unroll factor set to 3
+      remark #15309: vectorization support: normalized vectorization overhead 0.250
+      remark #15450: unmasked unaligned unit stride loads: 1 
+      remark #15451: unmasked unaligned unit stride stores: 1 
+      remark #15475: --- begin vector cost summary ---
+      remark #15476: scalar cost: 4 
+      remark #15477: vector cost: 4.000 
+      remark #15478: estimated potential speedup: 0.820 
+      remark #15488: --- end vector cost summary ---
+      remark #25436: completely unrolled by 7  
+   LOOP END
+LOOP END
+
+LOOP BEGIN at tests/PQCtestKAT_kem.c(47,3)
+   remark #15542: loop was not vectorized: inner loop was already vectorized
+
+   LOOP BEGIN at tests/PQCtestKAT_kem.c(144,2) inlined into tests/PQCtestKAT_kem.c(57,9)
+      remark #15520: loop was not vectorized: loop with multiple exits cannot be vectorized unless it meets search loop idiom criteria   [ tests/PQCtestKAT_kem.c(147,3) ]
+   LOOP END
+
+   LOOP BEGIN at tests/PQCtestKAT_kem.c(150,2) inlined into tests/PQCtestKAT_kem.c(57,9)
+      remark #15521: loop was not vectorized: loop control variable was not identified. Explicitly compute the iteration count before executing the loop or try using canonical loop form from OpenMP specification
+
+      LOOP BEGIN at tests/PQCtestKAT_kem.c(156,3) inlined into tests/PQCtestKAT_kem.c(57,9)
+         remark #15389: vectorization support: reference line[i] has unaligned access   [ tests/PQCtestKAT_kem.c(157,4) ]
+         remark #15389: vectorization support: reference line[i+1] has unaligned access   [ tests/PQCtestKAT_kem.c(157,14) ]
+         remark #15381: vectorization support: unaligned access used inside loop body
+         remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+         remark #15305: vectorization support: vector length 2
+         remark #15427: loop was completely unrolled
+         remark #15399: vectorization support: unroll factor set to 3
+         remark #15309: vectorization support: normalized vectorization overhead 0.250
+         remark #15450: unmasked unaligned unit stride loads: 1 
+         remark #15451: unmasked unaligned unit stride stores: 1 
+         remark #15475: --- begin vector cost summary ---
+         remark #15476: scalar cost: 4 
+         remark #15477: vector cost: 4.000 
+         remark #15478: estimated potential speedup: 0.800 
+         remark #15488: --- end vector cost summary ---
+         remark #25436: completely unrolled by 6  
+      LOOP END
+   LOOP END
+
+   LOOP BEGIN at tests/PQCtestKAT_kem.c(184,3) inlined into tests/PQCtestKAT_kem.c(57,9)
+      remark #15542: loop was not vectorized: inner loop was already vectorized
+
+      LOOP BEGIN at tests/PQCtestKAT_kem.c(204,4) inlined into tests/PQCtestKAT_kem.c(57,9)
+         remark #15388: vectorization support: reference seed[i] has aligned access   [ tests/PQCtestKAT_kem.c(57,25) ]
+         remark #15388: vectorization support: reference seed[i] has aligned access   [ tests/PQCtestKAT_kem.c(57,25) ]
+         remark #15389: vectorization support: reference seed[i+1] has unaligned access   [ tests/PQCtestKAT_kem.c(57,25) ]
+         remark #15381: vectorization support: unaligned access used inside loop body
+         remark #15305: vectorization support: vector length 16
+         remark #15399: vectorization support: unroll factor set to 2
+         remark #15309: vectorization support: normalized vectorization overhead 0.058
+         remark #15300: LOOP WAS VECTORIZED
+         remark #15448: unmasked aligned unit stride loads: 1 
+         remark #15449: unmasked aligned unit stride stores: 1 
+         remark #15450: unmasked unaligned unit stride loads: 1 
+         remark #15475: --- begin vector cost summary ---
+         remark #15476: scalar cost: 7 
+         remark #15477: vector cost: 1.620 
+         remark #15478: estimated potential speedup: 2.050 
+         remark #15487: type converts: 3 
+         remark #15488: --- end vector cost summary ---
+         remark #25015: Estimate of max trip count of loop=1
+      LOOP END
+
+      LOOP BEGIN at tests/PQCtestKAT_kem.c(204,4) inlined into tests/PQCtestKAT_kem.c(57,9)
+      <Remainder loop for vectorization>
+         remark #15388: vectorization support: reference seed[i] has aligned access   [ tests/PQCtestKAT_kem.c(57,25) ]
+         remark #15388: vectorization support: reference seed[i] has aligned access   [ tests/PQCtestKAT_kem.c(57,25) ]
+         remark #15389: vectorization support: reference seed[i+1] has unaligned access   [ tests/PQCtestKAT_kem.c(57,25) ]
+         remark #15381: vectorization support: unaligned access used inside loop body
+         remark #15335: remainder loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+         remark #15305: vectorization support: vector length 4
+         remark #15309: vectorization support: normalized vectorization overhead 1.100
+         remark #25436: completely unrolled by 15  
+      LOOP END
+   LOOP END
+
+   LOOP BEGIN at tests/PQCtestKAT_kem.c(144,2) inlined into tests/PQCtestKAT_kem.c(69,9)
+      remark #15520: loop was not vectorized: loop with multiple exits cannot be vectorized unless it meets search loop idiom criteria   [ tests/PQCtestKAT_kem.c(147,3) ]
+   LOOP END
+
+   LOOP BEGIN at tests/PQCtestKAT_kem.c(150,2) inlined into tests/PQCtestKAT_kem.c(69,9)
+      remark #15521: loop was not vectorized: loop control variable was not identified. Explicitly compute the iteration count before executing the loop or try using canonical loop form from OpenMP specification
+
+      LOOP BEGIN at tests/PQCtestKAT_kem.c(156,3) inlined into tests/PQCtestKAT_kem.c(69,9)
+         remark #15389: vectorization support: reference line[i] has unaligned access   [ tests/PQCtestKAT_kem.c(157,4) ]
+         remark #15389: vectorization support: reference line[i+1] has unaligned access   [ tests/PQCtestKAT_kem.c(157,14) ]
+         remark #15381: vectorization support: unaligned access used inside loop body
+         remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+         remark #15305: vectorization support: vector length 2
+         remark #15427: loop was completely unrolled
+         remark #15399: vectorization support: unroll factor set to 2
+         remark #15309: vectorization support: normalized vectorization overhead 0.375
+         remark #15450: unmasked unaligned unit stride loads: 1 
+         remark #15451: unmasked unaligned unit stride stores: 1 
+         remark #15475: --- begin vector cost summary ---
+         remark #15476: scalar cost: 4 
+         remark #15477: vector cost: 4.000 
+         remark #15478: estimated potential speedup: 0.720 
+         remark #15488: --- end vector cost summary ---
+         remark #25436: completely unrolled by 4  
+      LOOP END
+   LOOP END
+
+   LOOP BEGIN at tests/PQCtestKAT_kem.c(184,3) inlined into tests/PQCtestKAT_kem.c(69,9)
+      remark #15542: loop was not vectorized: inner loop was already vectorized
+
+      LOOP BEGIN at tests/PQCtestKAT_kem.c(204,4) inlined into tests/PQCtestKAT_kem.c(69,9)
+         remark #15388: vectorization support: reference pk_rsp[i] has aligned access   [ tests/PQCtestKAT_kem.c(69,25) ]
+         remark #15388: vectorization support: reference pk_rsp[i] has aligned access   [ tests/PQCtestKAT_kem.c(69,25) ]
+         remark #15389: vectorization support: reference pk_rsp[i+1] has unaligned access   [ tests/PQCtestKAT_kem.c(69,25) ]
+         remark #15381: vectorization support: unaligned access used inside loop body
+         remark #15305: vectorization support: vector length 16
+         remark #15399: vectorization support: unroll factor set to 2
+         remark #15309: vectorization support: normalized vectorization overhead 0.058
+         remark #15300: LOOP WAS VECTORIZED
+         remark #15448: unmasked aligned unit stride loads: 1 
+         remark #15449: unmasked aligned unit stride stores: 1 
+         remark #15450: unmasked unaligned unit stride loads: 1 
+         remark #15475: --- begin vector cost summary ---
+         remark #15476: scalar cost: 7 
+         remark #15477: vector cost: 1.620 
+         remark #15478: estimated potential speedup: 4.280 
+         remark #15487: type converts: 3 
+         remark #15488: --- end vector cost summary ---
+         remark #25015: Estimate of max trip count of loop=300
+      LOOP END
+
+      LOOP BEGIN at tests/PQCtestKAT_kem.c(204,4) inlined into tests/PQCtestKAT_kem.c(69,9)
+      <Remainder loop for vectorization>
+         remark #15388: vectorization support: reference pk_rsp[i] has aligned access   [ tests/PQCtestKAT_kem.c(69,25) ]
+         remark #15388: vectorization support: reference pk_rsp[i] has aligned access   [ tests/PQCtestKAT_kem.c(69,25) ]
+         remark #15389: vectorization support: reference pk_rsp[i+1] has unaligned access   [ tests/PQCtestKAT_kem.c(69,25) ]
+         remark #15381: vectorization support: unaligned access used inside loop body
+         remark #15335: remainder loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+         remark #15305: vectorization support: vector length 4
+         remark #15309: vectorization support: normalized vectorization overhead 1.100
+         remark #25436: completely unrolled by 15  
+      LOOP END
+   LOOP END
+
+   LOOP BEGIN at tests/PQCtestKAT_kem.c(144,2) inlined into tests/PQCtestKAT_kem.c(73,9)
+      remark #15520: loop was not vectorized: loop with multiple exits cannot be vectorized unless it meets search loop idiom criteria   [ tests/PQCtestKAT_kem.c(147,3) ]
+   LOOP END
+
+   LOOP BEGIN at tests/PQCtestKAT_kem.c(150,2) inlined into tests/PQCtestKAT_kem.c(73,9)
+      remark #15521: loop was not vectorized: loop control variable was not identified. Explicitly compute the iteration count before executing the loop or try using canonical loop form from OpenMP specification
+
+      LOOP BEGIN at tests/PQCtestKAT_kem.c(156,3) inlined into tests/PQCtestKAT_kem.c(73,9)
+         remark #15389: vectorization support: reference line[i] has unaligned access   [ tests/PQCtestKAT_kem.c(157,4) ]
+         remark #15389: vectorization support: reference line[i+1] has unaligned access   [ tests/PQCtestKAT_kem.c(157,14) ]
+         remark #15381: vectorization support: unaligned access used inside loop body
+         remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+         remark #15305: vectorization support: vector length 2
+         remark #15427: loop was completely unrolled
+         remark #15399: vectorization support: unroll factor set to 2
+         remark #15309: vectorization support: normalized vectorization overhead 0.375
+         remark #15450: unmasked unaligned unit stride loads: 1 
+         remark #15451: unmasked unaligned unit stride stores: 1 
+         remark #15475: --- begin vector cost summary ---
+         remark #15476: scalar cost: 4 
+         remark #15477: vector cost: 4.000 
+         remark #15478: estimated potential speedup: 0.720 
+         remark #15488: --- end vector cost summary ---
+         remark #25436: completely unrolled by 4  
+      LOOP END
+   LOOP END
+
+   LOOP BEGIN at tests/PQCtestKAT_kem.c(184,3) inlined into tests/PQCtestKAT_kem.c(73,9)
+      remark #15542: loop was not vectorized: inner loop was already vectorized
+
+      LOOP BEGIN at tests/PQCtestKAT_kem.c(204,4) inlined into tests/PQCtestKAT_kem.c(73,9)
+         remark #15388: vectorization support: reference sk_rsp[i] has aligned access   [ tests/PQCtestKAT_kem.c(73,25) ]
+         remark #15388: vectorization support: reference sk_rsp[i] has aligned access   [ tests/PQCtestKAT_kem.c(73,25) ]
+         remark #15389: vectorization support: reference sk_rsp[i+1] has unaligned access   [ tests/PQCtestKAT_kem.c(73,25) ]
+         remark #15381: vectorization support: unaligned access used inside loop body
+         remark #15305: vectorization support: vector length 16
+         remark #15399: vectorization support: unroll factor set to 2
+         remark #15309: vectorization support: normalized vectorization overhead 0.058
+         remark #15300: LOOP WAS VECTORIZED
+         remark #15448: unmasked aligned unit stride loads: 1 
+         remark #15449: unmasked aligned unit stride stores: 1 
+         remark #15450: unmasked unaligned unit stride loads: 1 
+         remark #15475: --- begin vector cost summary ---
+         remark #15476: scalar cost: 7 
+         remark #15477: vector cost: 1.620 
+         remark #15478: estimated potential speedup: 4.290 
+         remark #15487: type converts: 3 
+         remark #15488: --- end vector cost summary ---
+         remark #25015: Estimate of max trip count of loop=621
+      LOOP END
+
+      LOOP BEGIN at tests/PQCtestKAT_kem.c(204,4) inlined into tests/PQCtestKAT_kem.c(73,9)
+      <Remainder loop for vectorization>
+         remark #15388: vectorization support: reference sk_rsp[i] has aligned access   [ tests/PQCtestKAT_kem.c(73,25) ]
+         remark #15388: vectorization support: reference sk_rsp[i] has aligned access   [ tests/PQCtestKAT_kem.c(73,25) ]
+         remark #15389: vectorization support: reference sk_rsp[i+1] has unaligned access   [ tests/PQCtestKAT_kem.c(73,25) ]
+         remark #15381: vectorization support: unaligned access used inside loop body
+         remark #15335: remainder loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+         remark #15305: vectorization support: vector length 4
+         remark #15309: vectorization support: normalized vectorization overhead 1.100
+         remark #25436: completely unrolled by 15  
+      LOOP END
+   LOOP END
+
+   LOOP BEGIN at tests/PQCtestKAT_kem.c(144,2) inlined into tests/PQCtestKAT_kem.c(92,9)
+      remark #15520: loop was not vectorized: loop with multiple exits cannot be vectorized unless it meets search loop idiom criteria   [ tests/PQCtestKAT_kem.c(147,3) ]
+   LOOP END
+
+   LOOP BEGIN at tests/PQCtestKAT_kem.c(150,2) inlined into tests/PQCtestKAT_kem.c(92,9)
+      remark #15521: loop was not vectorized: loop control variable was not identified. Explicitly compute the iteration count before executing the loop or try using canonical loop form from OpenMP specification
+
+      LOOP BEGIN at tests/PQCtestKAT_kem.c(156,3) inlined into tests/PQCtestKAT_kem.c(92,9)
+         remark #15389: vectorization support: reference line[i] has unaligned access   [ tests/PQCtestKAT_kem.c(157,4) ]
+         remark #15389: vectorization support: reference line[i+1] has unaligned access   [ tests/PQCtestKAT_kem.c(157,14) ]
+         remark #15381: vectorization support: unaligned access used inside loop body
+         remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+         remark #15305: vectorization support: vector length 2
+         remark #15427: loop was completely unrolled
+         remark #15399: vectorization support: unroll factor set to 2
+         remark #15309: vectorization support: normalized vectorization overhead 0.375
+         remark #15450: unmasked unaligned unit stride loads: 1 
+         remark #15451: unmasked unaligned unit stride stores: 1 
+         remark #15475: --- begin vector cost summary ---
+         remark #15476: scalar cost: 4 
+         remark #15477: vector cost: 4.000 
+         remark #15478: estimated potential speedup: 0.720 
+         remark #15488: --- end vector cost summary ---
+         remark #25436: completely unrolled by 4  
+      LOOP END
+   LOOP END
+
+   LOOP BEGIN at tests/PQCtestKAT_kem.c(184,3) inlined into tests/PQCtestKAT_kem.c(92,9)
+      remark #15542: loop was not vectorized: inner loop was already vectorized
+
+      LOOP BEGIN at tests/PQCtestKAT_kem.c(204,4) inlined into tests/PQCtestKAT_kem.c(92,9)
+         remark #15388: vectorization support: reference ct_rsp[i] has aligned access   [ tests/PQCtestKAT_kem.c(92,25) ]
+         remark #15388: vectorization support: reference ct_rsp[i] has aligned access   [ tests/PQCtestKAT_kem.c(92,25) ]
+         remark #15389: vectorization support: reference ct_rsp[i+1] has unaligned access   [ tests/PQCtestKAT_kem.c(92,25) ]
+         remark #15381: vectorization support: unaligned access used inside loop body
+         remark #15305: vectorization support: vector length 16
+         remark #15399: vectorization support: unroll factor set to 2
+         remark #15309: vectorization support: normalized vectorization overhead 0.058
+         remark #15300: LOOP WAS VECTORIZED
+         remark #15448: unmasked aligned unit stride loads: 1 
+         remark #15449: unmasked aligned unit stride stores: 1 
+         remark #15450: unmasked unaligned unit stride loads: 1 
+         remark #15475: --- begin vector cost summary ---
+         remark #15476: scalar cost: 7 
+         remark #15477: vector cost: 1.620 
+         remark #15478: estimated potential speedup: 4.270 
+         remark #15487: type converts: 3 
+         remark #15488: --- end vector cost summary ---
+         remark #25015: Estimate of max trip count of loop=303
+      LOOP END
+
+      LOOP BEGIN at tests/PQCtestKAT_kem.c(204,4) inlined into tests/PQCtestKAT_kem.c(92,9)
+      <Remainder loop for vectorization>
+         remark #15388: vectorization support: reference ct_rsp[i] has aligned access   [ tests/PQCtestKAT_kem.c(92,25) ]
+         remark #15388: vectorization support: reference ct_rsp[i] has aligned access   [ tests/PQCtestKAT_kem.c(92,25) ]
+         remark #15389: vectorization support: reference ct_rsp[i+1] has unaligned access   [ tests/PQCtestKAT_kem.c(92,25) ]
+         remark #15381: vectorization support: unaligned access used inside loop body
+         remark #15305: vectorization support: vector length 16
+         remark #15309: vectorization support: normalized vectorization overhead 0.406
+         remark #15301: REMAINDER LOOP WAS VECTORIZED
+         remark #25015: Estimate of max trip count of loop=1
+      LOOP END
+
+      LOOP BEGIN at tests/PQCtestKAT_kem.c(204,4) inlined into tests/PQCtestKAT_kem.c(92,9)
+      <Remainder loop for vectorization>
+         remark #25436: completely unrolled by 7  
+      LOOP END
+   LOOP END
+
+   LOOP BEGIN at tests/PQCtestKAT_kem.c(144,2) inlined into tests/PQCtestKAT_kem.c(96,9)
+      remark #15520: loop was not vectorized: loop with multiple exits cannot be vectorized unless it meets search loop idiom criteria   [ tests/PQCtestKAT_kem.c(147,3) ]
+   LOOP END
+
+   LOOP BEGIN at tests/PQCtestKAT_kem.c(150,2) inlined into tests/PQCtestKAT_kem.c(96,9)
+      remark #15521: loop was not vectorized: loop control variable was not identified. Explicitly compute the iteration count before executing the loop or try using canonical loop form from OpenMP specification
+
+      LOOP BEGIN at tests/PQCtestKAT_kem.c(156,3) inlined into tests/PQCtestKAT_kem.c(96,9)
+         remark #15389: vectorization support: reference line[i] has unaligned access   [ tests/PQCtestKAT_kem.c(157,4) ]
+         remark #15389: vectorization support: reference line[i+1] has unaligned access   [ tests/PQCtestKAT_kem.c(157,14) ]
+         remark #15381: vectorization support: unaligned access used inside loop body
+         remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+         remark #15305: vectorization support: vector length 2
+         remark #15427: loop was completely unrolled
+         remark #15399: vectorization support: unroll factor set to 2
+         remark #15309: vectorization support: normalized vectorization overhead 0.375
+         remark #15450: unmasked unaligned unit stride loads: 1 
+         remark #15451: unmasked unaligned unit stride stores: 1 
+         remark #15475: --- begin vector cost summary ---
+         remark #15476: scalar cost: 4 
+         remark #15477: vector cost: 4.000 
+         remark #15478: estimated potential speedup: 0.720 
+         remark #15488: --- end vector cost summary ---
+         remark #25436: completely unrolled by 4  
+      LOOP END
+   LOOP END
+
+   LOOP BEGIN at tests/PQCtestKAT_kem.c(184,3) inlined into tests/PQCtestKAT_kem.c(96,9)
+      remark #15542: loop was not vectorized: inner loop was already vectorized
+
+      LOOP BEGIN at tests/PQCtestKAT_kem.c(204,4) inlined into tests/PQCtestKAT_kem.c(96,9)
+         remark #15389: vectorization support: reference ss_rsp[i] has unaligned access   [ tests/PQCtestKAT_kem.c(96,25) ]
+         remark #15389: vectorization support: reference ss_rsp[i] has unaligned access   [ tests/PQCtestKAT_kem.c(96,25) ]
+         remark #15389: vectorization support: reference ss_rsp[i+1] has unaligned access   [ tests/PQCtestKAT_kem.c(96,25) ]
+         remark #15381: vectorization support: unaligned access used inside loop body
+         remark #15305: vectorization support: vector length 4
+         remark #15399: vectorization support: unroll factor set to 3
+         remark #15309: vectorization support: normalized vectorization overhead 0.286
+         remark #15300: LOOP WAS VECTORIZED
+         remark #15450: unmasked unaligned unit stride loads: 2 
+         remark #15451: unmasked unaligned unit stride stores: 1 
+         remark #15475: --- begin vector cost summary ---
+         remark #15476: scalar cost: 7 
+         remark #15477: vector cost: 3.500 
+         remark #15478: estimated potential speedup: 1.400 
+         remark #15487: type converts: 3 
+         remark #15488: --- end vector cost summary ---
+         remark #25015: Estimate of max trip count of loop=1
+      LOOP END
+
+      LOOP BEGIN at tests/PQCtestKAT_kem.c(204,4) inlined into tests/PQCtestKAT_kem.c(96,9)
+      <Remainder loop for vectorization>
+         remark #25436: completely unrolled by 3  
+      LOOP END
+   LOOP END
+
+   LOOP BEGIN at tests/PQCtestKAT_kem.c(144,2) inlined into tests/PQCtestKAT_kem.c(47,8)
+      remark #15520: loop was not vectorized: loop with multiple exits cannot be vectorized unless it meets search loop idiom criteria   [ tests/PQCtestKAT_kem.c(147,3) ]
+   LOOP END
+
+   LOOP BEGIN at tests/PQCtestKAT_kem.c(150,2) inlined into tests/PQCtestKAT_kem.c(47,8)
+      remark #15521: loop was not vectorized: loop control variable was not identified. Explicitly compute the iteration count before executing the loop or try using canonical loop form from OpenMP specification
+
+      LOOP BEGIN at tests/PQCtestKAT_kem.c(156,3) inlined into tests/PQCtestKAT_kem.c(47,8)
+         remark #15389: vectorization support: reference line[i] has unaligned access   [ tests/PQCtestKAT_kem.c(157,4) ]
+         remark #15389: vectorization support: reference line[i+1] has unaligned access   [ tests/PQCtestKAT_kem.c(157,14) ]
+         remark #15381: vectorization support: unaligned access used inside loop body
+         remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+         remark #15305: vectorization support: vector length 2
+         remark #15399: vectorization support: unroll factor set to 3
+         remark #15309: vectorization support: normalized vectorization overhead 0.250
+         remark #15450: unmasked unaligned unit stride loads: 1 
+         remark #15451: unmasked unaligned unit stride stores: 1 
+         remark #15475: --- begin vector cost summary ---
+         remark #15476: scalar cost: 4 
+         remark #15477: vector cost: 4.000 
+         remark #15478: estimated potential speedup: 0.820 
+         remark #15488: --- end vector cost summary ---
+         remark #25436: completely unrolled by 7  
+      LOOP END
+   LOOP END
+LOOP END
+
+    Report from: Code generation optimizations [cg]
+
+tests/PQCtestKAT_kem.c(57,25):remark #34055: adjacent dense (unit-strided stencil) loads are not optimized. Details: stride { 1 }, step { 1 }, types { I8-V128, I8-V128 }, number of elements { 16 }, select mask { 0x000000003 }.
+tests/PQCtestKAT_kem.c(57,25):remark #34055: adjacent dense (unit-strided stencil) loads are not optimized. Details: stride { 1 }, step { 1 }, types { I8-V128, I8-V128 }, number of elements { 16 }, select mask { 0x000000003 }.
+tests/PQCtestKAT_kem.c(69,25):remark #34055: adjacent dense (unit-strided stencil) loads are not optimized. Details: stride { 1 }, step { 1 }, types { I8-V128, I8-V128 }, number of elements { 16 }, select mask { 0x000000003 }.
+tests/PQCtestKAT_kem.c(69,25):remark #34055: adjacent dense (unit-strided stencil) loads are not optimized. Details: stride { 1 }, step { 1 }, types { I8-V128, I8-V128 }, number of elements { 16 }, select mask { 0x000000003 }.
+tests/PQCtestKAT_kem.c(73,25):remark #34055: adjacent dense (unit-strided stencil) loads are not optimized. Details: stride { 1 }, step { 1 }, types { I8-V128, I8-V128 }, number of elements { 16 }, select mask { 0x000000003 }.
+tests/PQCtestKAT_kem.c(73,25):remark #34055: adjacent dense (unit-strided stencil) loads are not optimized. Details: stride { 1 }, step { 1 }, types { I8-V128, I8-V128 }, number of elements { 16 }, select mask { 0x000000003 }.
+tests/PQCtestKAT_kem.c(92,25):remark #34055: adjacent dense (unit-strided stencil) loads are not optimized. Details: stride { 1 }, step { 1 }, types { I8-V128, I8-V128 }, number of elements { 16 }, select mask { 0x000000003 }.
+tests/PQCtestKAT_kem.c(92,25):remark #34055: adjacent dense (unit-strided stencil) loads are not optimized. Details: stride { 1 }, step { 1 }, types { I8-V128, I8-V128 }, number of elements { 16 }, select mask { 0x000000003 }.
+tests/PQCtestKAT_kem.c(92,25):remark #34055: adjacent dense (unit-strided stencil) loads are not optimized. Details: stride { 1 }, step { 1 }, types { I8-V128, I8-V128 }, number of elements { 16 }, select mask { 0x000000003 }.
+tests/PQCtestKAT_kem.c(181,2):remark #34000: call to memset implemented inline with stores with proven (alignment, offset): (16, 0)
+tests/PQCtestKAT_kem.c(181,2):remark #34026: call to memset implemented as a call to optimized library version
+tests/PQCtestKAT_kem.c(181,2):remark #34026: call to memset implemented as a call to optimized library version
+tests/PQCtestKAT_kem.c(78,7):remark #34026: call to memcmp implemented as a call to optimized library version
+tests/PQCtestKAT_kem.c(82,7):remark #34026: call to memcmp implemented as a call to optimized library version
+tests/PQCtestKAT_kem.c(181,2):remark #34026: call to memset implemented as a call to optimized library version
+tests/PQCtestKAT_kem.c(181,2):remark #34000: call to memset implemented inline with stores with proven (alignment, offset): (16, 0)
+tests/PQCtestKAT_kem.c(101,7):remark #34026: call to memcmp implemented as a call to optimized library version
+tests/PQCtestKAT_kem.c(105,7):remark #34026: call to memcmp implemented as a call to optimized library version
+tests/PQCtestKAT_kem.c(115,8):remark #34026: call to memcmp implemented as a call to optimized library version
+tests/PQCtestKAT_kem.c(28,8):remark #34051: REGISTER ALLOCATION : [main] tests/PQCtestKAT_kem.c:28
+
+    Hardware registers
+        Reserved     :    2[ rsp rip]
+        Available    :   39[ rax rdx rcx rbx rbp rsi rdi r8-r15 mm0-mm7 zmm0-zmm15]
+        Callee-save  :    6[ rbx rbp r12-r15]
+        Assigned     :   23[ rax rdx rcx rbx rsi rdi r8-r11 r13-r15 zmm0-zmm9]
+        
+    Routine temporaries
+        Total         :     852
+            Global    :     121
+            Local     :     731
+        Regenerable   :     230
+        Spilled       :       4
+        
+    Routine stack
+        Variables     :   78966 bytes*
+            Reads     :     140 [7.34e+00 ~ 7.3%]
+            Writes    :     142 [8.90e+00 ~ 8.9%]
+        Spills        :       0 bytes*
+            Reads     :       0 [0.00e+00 ~ 0.0%]
+            Writes    :       0 [0.00e+00 ~ 0.0%]
+    
+    Notes
+    
+        *Non-overlapping variables and spills may share stack space,
+         so the total stack size might be less than this.
+    
+
+===========================================================================
+
+Begin optimization report for: FindMarker(FILE *, const char *)
+
+    Report from: Interprocedural optimizations [ipo]
+
+INLINE REPORT: (FindMarker(FILE *, const char *)) [2/4=50.0%] tests/PQCtestKAT_kem.c(135,46)
+  -> EXTERN: (140,13) strlen(const char *)
+  -> EXTERN: (145,15) fgetc(FILE *)
+  -> EXTERN: (153,9) strncmp(const char *, const char *, size_t)
+  -> EXTERN: (158,15) fgetc(FILE *)
+
+
+    Report from: Loop nest, Vector & Auto-parallelization optimizations [loop, vec, par]
+
+
+LOOP BEGIN at tests/PQCtestKAT_kem.c(144,2)
+   remark #15520: loop was not vectorized: loop with multiple exits cannot be vectorized unless it meets search loop idiom criteria   [ tests/PQCtestKAT_kem.c(148,11) ]
+   remark #25015: Estimate of max trip count of loop=50
+LOOP END
+
+LOOP BEGIN at tests/PQCtestKAT_kem.c(150,2)
+   remark #15542: loop was not vectorized: inner loop was already vectorized
+
+   LOOP BEGIN at tests/PQCtestKAT_kem.c(156,3)
+      remark #25401: memcopy(with guard) generated
+      remark #15542: loop was not vectorized: inner loop was already vectorized
+      remark #25015: Estimate of max trip count of loop=50
+
+      LOOP BEGIN at tests/PQCtestKAT_kem.c(156,3)
+      <Multiversioned v2>
+         remark #15388: vectorization support: reference line[i] has aligned access   [ tests/PQCtestKAT_kem.c(157,4) ]
+         remark #15389: vectorization support: reference line[i+1] has unaligned access   [ tests/PQCtestKAT_kem.c(157,14) ]
+         remark #15381: vectorization support: unaligned access used inside loop body
+         remark #15305: vectorization support: vector length 16
+         remark #15300: LOOP WAS VECTORIZED
+         remark #15449: unmasked aligned unit stride stores: 1 
+         remark #15450: unmasked unaligned unit stride loads: 1 
+         remark #15475: --- begin vector cost summary ---
+         remark #15476: scalar cost: 4 
+         remark #15477: vector cost: 0.310 
+         remark #15478: estimated potential speedup: 8.690 
+         remark #15488: --- end vector cost summary ---
+         remark #25015: Estimate of max trip count of loop=3
+      LOOP END
+
+      LOOP BEGIN at tests/PQCtestKAT_kem.c(156,3)
+      <Remainder loop for vectorization, Multiversioned v2>
+         remark #25015: Estimate of max trip count of loop=50
+      LOOP END
+   LOOP END
+LOOP END
+
+    Report from: Code generation optimizations [cg]
+
+tests/PQCtestKAT_kem.c(156,3):remark #34026: call to memcpy implemented as a call to optimized library version
+tests/PQCtestKAT_kem.c(135,46):remark #34051: REGISTER ALLOCATION : [FindMarker] tests/PQCtestKAT_kem.c:135
+
+    Hardware registers
+        Reserved     :    2[ rsp rip]
+        Available    :   39[ rax rdx rcx rbx rbp rsi rdi r8-r15 mm0-mm7 zmm0-zmm15]
+        Callee-save  :    6[ rbx rbp r12-r15]
+        Assigned     :   12[ rax rdx rcx rbx rsi rdi r8 r12-r15 zmm0]
+        
+    Routine temporaries
+        Total         :      55
+            Global    :      24
+            Local     :      31
+        Regenerable   :      12
+        Spilled       :       6
+        
+    Routine stack
+        Variables     :      50 bytes*
+            Reads     :       2 [1.19e+01 ~ 11.9%]
+            Writes    :       6 [1.35e+01 ~ 13.5%]
+        Spills        :      16 bytes*
+            Reads     :       3 [1.73e-01 ~ 0.2%]
+            Writes    :       2 [1.07e-01 ~ 0.1%]
+    
+    Notes
+    
+        *Non-overlapping variables and spills may share stack space,
+         so the total stack size might be less than this.
+    
+
+===========================================================================
+
+Begin optimization report for: ReadHex(FILE *, unsigned char *, int, char *)
+
+    Report from: Interprocedural optimizations [ipo]
+
+INLINE REPORT: (ReadHex(FILE *, unsigned char *, int, char *)) [3/4=75.0%] tests/PQCtestKAT_kem.c(173,64)
+  -> EXTERN: (181,2) memset(void *, int, size_t)
+  -> INLINE: (183,7) FindMarker(FILE *, const char *) (isz = 79) (sz = 91)
+    -> EXTERN: (140,13) strlen(const char *)
+    -> EXTERN: (145,15) fgetc(FILE *)
+    -> EXTERN: (153,9) strncmp(const char *, const char *, size_t)
+    -> EXTERN: (158,15) fgetc(FILE *)
+  -> EXTERN: (184,17) fgetc(FILE *)
+  -> EXTERN: (184,17) fgetc(FILE *)
+  -> EXTERN: (185,10) __ctype_b_loc(void)
+
+
+    Report from: Loop nest, Vector & Auto-parallelization optimizations [loop, vec, par]
+
+
+LOOP BEGIN at tests/PQCtestKAT_kem.c(144,2) inlined into tests/PQCtestKAT_kem.c(183,7)
+   remark #15520: loop was not vectorized: loop with multiple exits cannot be vectorized unless it meets search loop idiom criteria   [ tests/PQCtestKAT_kem.c(147,3) ]
+   remark #25015: Estimate of max trip count of loop=50
+LOOP END
+
+LOOP BEGIN at tests/PQCtestKAT_kem.c(150,2) inlined into tests/PQCtestKAT_kem.c(183,7)
+   remark #15542: loop was not vectorized: inner loop was already vectorized
+
+   LOOP BEGIN at tests/PQCtestKAT_kem.c(156,3) inlined into tests/PQCtestKAT_kem.c(183,7)
+      remark #25401: memcopy(with guard) generated
+      remark #15542: loop was not vectorized: inner loop was already vectorized
+      remark #25015: Estimate of max trip count of loop=50
+
+      LOOP BEGIN at tests/PQCtestKAT_kem.c(156,3) inlined into tests/PQCtestKAT_kem.c(183,7)
+      <Multiversioned v2>
+         remark #15388: vectorization support: reference line[i] has aligned access   [ tests/PQCtestKAT_kem.c(157,4) ]
+         remark #15389: vectorization support: reference line[i+1] has unaligned access   [ tests/PQCtestKAT_kem.c(157,14) ]
+         remark #15381: vectorization support: unaligned access used inside loop body
+         remark #15305: vectorization support: vector length 16
+         remark #15300: LOOP WAS VECTORIZED
+         remark #15449: unmasked aligned unit stride stores: 1 
+         remark #15450: unmasked unaligned unit stride loads: 1 
+         remark #15475: --- begin vector cost summary ---
+         remark #15476: scalar cost: 4 
+         remark #15477: vector cost: 0.310 
+         remark #15478: estimated potential speedup: 8.690 
+         remark #15488: --- end vector cost summary ---
+         remark #25015: Estimate of max trip count of loop=3
+      LOOP END
+
+      LOOP BEGIN at tests/PQCtestKAT_kem.c(156,3) inlined into tests/PQCtestKAT_kem.c(183,7)
+      <Remainder loop for vectorization, Multiversioned v2>
+         remark #25015: Estimate of max trip count of loop=50
+      LOOP END
+   LOOP END
+LOOP END
+
+LOOP BEGIN at tests/PQCtestKAT_kem.c(184,3)
+   remark #15542: loop was not vectorized: inner loop was already vectorized
+
+   LOOP BEGIN at tests/PQCtestKAT_kem.c(204,4)
+      remark #15389: vectorization support: reference A[i] has unaligned access   [ tests/PQCtestKAT_kem.c(205,5) ]
+      remark #15389: vectorization support: reference A[i] has unaligned access   [ tests/PQCtestKAT_kem.c(205,13) ]
+      remark #15389: vectorization support: reference A[i+1] has unaligned access   [ tests/PQCtestKAT_kem.c(205,27) ]
+      remark #15381: vectorization support: unaligned access used inside loop body
+      remark #15305: vectorization support: vector length 8
+      remark #15309: vectorization support: normalized vectorization overhead 0.643
+      remark #15300: LOOP WAS VECTORIZED
+      remark #15450: unmasked unaligned unit stride loads: 2 
+      remark #15451: unmasked unaligned unit stride stores: 1 
+      remark #15475: --- begin vector cost summary ---
+      remark #15476: scalar cost: 8 
+      remark #15477: vector cost: 1.750 
+      remark #15478: estimated potential speedup: 4.290 
+      remark #15487: type converts: 3 
+      remark #15488: --- end vector cost summary ---
+   LOOP END
+
+   LOOP BEGIN at tests/PQCtestKAT_kem.c(204,4)
+   <Remainder loop for vectorization>
+   LOOP END
+LOOP END
+
+    Report from: Code generation optimizations [cg]
+
+tests/PQCtestKAT_kem.c(205,39):remark #34055: adjacent dense (unit-strided stencil) loads are not optimized. Details: stride { 1 }, step { 1 }, types { I8-V64, I8-V64 }, number of elements { 8 }, select mask { 0x000000003 }.
+tests/PQCtestKAT_kem.c(181,2):remark #34014: optimization advice for memset: increase the destination's alignment to 16 (and use __assume_aligned) to speed up library implementation
+tests/PQCtestKAT_kem.c(181,2):remark #34026: call to memset implemented as a call to optimized library version
+tests/PQCtestKAT_kem.c(156,3):remark #34026: call to memcpy implemented as a call to optimized library version
+tests/PQCtestKAT_kem.c(173,64):remark #34051: REGISTER ALLOCATION : [ReadHex] tests/PQCtestKAT_kem.c:173
+
+    Hardware registers
+        Reserved     :    2[ rsp rip]
+        Available    :   39[ rax rdx rcx rbx rbp rsi rdi r8-r15 mm0-mm7 zmm0-zmm15]
+        Callee-save  :    6[ rbx rbp r12-r15]
+        Assigned     :   16[ rax rdx rcx rbx rsi rdi r8-r9 r12-r15 zmm0-zmm3]
+        
+    Routine temporaries
+        Total         :     105
+            Global    :      41
+            Local     :      64
+        Regenerable   :      16
+        Spilled       :      13
+        
+    Routine stack
+        Variables     :      50 bytes*
+            Reads     :       2 [7.92e+00 ~ 7.9%]
+            Writes    :       6 [8.99e+00 ~ 9.0%]
+        Spills        :      64 bytes*
+            Reads     :      15 [8.68e-01 ~ 0.9%]
+            Writes    :      13 [1.13e+00 ~ 1.1%]
+    
+    Notes
+    
+        *Non-overlapping variables and spills may share stack space,
+         so the total stack size might be less than this.
+    
+
+===========================================================================
+
+Begin optimization report for: fprintBstr(FILE *, char *, unsigned char *, unsigned long long)
+
+    Report from: Interprocedural optimizations [ipo]
+
+INLINE REPORT: (fprintBstr(FILE *, char *, unsigned char *, unsigned long long)) [4/4=100.0%] tests/PQCtestKAT_kem.c(214,71)
+  -> EXTERN: (217,2) fprintf(FILE *__restrict__, const char *__restrict__, ...)
+  -> EXTERN: (220,3) fprintf(FILE *__restrict__, const char *__restrict__, ...)
+  -> EXTERN: (223,3) fprintf(FILE *__restrict__, const char *__restrict__, ...)
+  -> EXTERN: (225,2) fprintf(FILE *__restrict__, const char *__restrict__, ...)
+
+
+    Report from: Loop nest, Vector & Auto-parallelization optimizations [loop, vec, par]
+
+
+LOOP BEGIN at tests/PQCtestKAT_kem.c(219,2)
+   remark #15527: loop was not vectorized: function call to fprintf(FILE *__restrict__, const char *__restrict__, ...) cannot be vectorized   [ tests/PQCtestKAT_kem.c(220,3) ]
+LOOP END
+
+    Report from: Code generation optimizations [cg]
+
+tests/PQCtestKAT_kem.c(214,71):remark #34051: REGISTER ALLOCATION : [fprintBstr] tests/PQCtestKAT_kem.c:214
+
+    Hardware registers
+        Reserved     :    2[ rsp rip]
+        Available    :   39[ rax rdx rcx rbx rbp rsi rdi r8-r15 mm0-mm7 zmm0-zmm15]
+        Callee-save  :    6[ rbx rbp r12-r15]
+        Assigned     :    9[ rax rdx rcx rsi rdi r12-r15]
+        
+    Routine temporaries
+        Total         :      30
+            Global    :      12
+            Local     :      18
+        Regenerable   :       8
+        Spilled       :       4
+        
+    Routine stack
+        Variables     :       0 bytes*
+            Reads     :       0 [0.00e+00 ~ 0.0%]
+            Writes    :       0 [0.00e+00 ~ 0.0%]
+        Spills        :       0 bytes*
+            Reads     :       0 [0.00e+00 ~ 0.0%]
+            Writes    :       0 [0.00e+00 ~ 0.0%]
+    
+    Notes
+    
+        *Non-overlapping variables and spills may share stack space,
+         so the total stack size might be less than this.
+    
+
+===========================================================================

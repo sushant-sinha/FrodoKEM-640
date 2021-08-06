@@ -1,0 +1,360 @@
+Intel(R) Advisor can now assist with vectorization and show optimization
+  report messages with your source code.
+See "https://software.intel.com/en-us/intel-advisor-xe" for details.
+
+Intel(R) C Intel(R) 64 Compiler Classic for applications running on Intel(R) 64, Version 2021.1.2 Build 20201208_000000
+
+Compiler options: -I/include -I/usr/include -pg -g -ldl -Ofast -qopenmp -qopt-report=5 -Wall -std=gnu11 -Wextra -DNIX -D _AMD64_ -D _REFERENCE_ -D _AES128_FOR_A_ -D _USE_OPENSSL_ -L./frodo -lfrodo_for_testing -lm -L/usr/lib -lssl -lcrypto -qopenmp -o frodo/PQCtestKAT_kem
+
+    Report from: Interprocedural optimizations [ipo]
+
+  WHOLE PROGRAM (SAFE) [EITHER METHOD]: false
+  WHOLE PROGRAM (SEEN) [TABLE METHOD]: false
+  WHOLE PROGRAM (READ) [OBJECT READER METHOD]: false
+
+INLINING OPTION VALUES:
+  -inline-factor: 100
+  -inline-min-size: 30
+  -inline-max-size: 230
+  -inline-max-total-size: 2000
+  -inline-max-per-routine: 10000
+  -inline-max-per-compile: 500000
+
+In the inlining report below:
+   "sz" refers to the "size" of the routine. The smaller a routine's size,
+      the more likely it is to be inlined.
+   "isz" refers to the "inlined size" of the routine. This is the amount
+      the calling routine will grow if the called routine is inlined into it.
+      The compiler generally limits the amount a routine can grow by having
+      routines inlined into it.
+
+Begin optimization report for: AES256_ECB(unsigned char *, unsigned char *, unsigned char *)
+
+    Report from: Interprocedural optimizations [ipo]
+
+DEAD STATIC FUNCTION: (AES256_ECB(unsigned char *, unsigned char *, unsigned char *)) tests/rng.h(20,96)
+
+===========================================================================
+
+Begin optimization report for: randombytes(unsigned char *, unsigned long long)
+
+    Report from: Interprocedural optimizations [ipo]
+
+INLINE REPORT: (randombytes(unsigned char *, unsigned long long)) [2/4=50.0%] tests/rng.c(32,56)
+  -> INLINE (MANUAL): (46,3) AES256_ECB(unsigned char *, unsigned char *, unsigned char *) (isz = 28) (sz = 37)
+    -> EXTERN: tests/rng.h:(31,14) EVP_CIPHER_CTX_new(void)
+    -> EXTERN: tests/rng.h:(31,37) handleErrors(void)
+    -> EXTERN: tests/rng.h:(33,11) EVP_EncryptInit_ex(EVP_CIPHER_CTX *, const EVP_CIPHER *, ENGINE *, const unsigned char *, const unsigned char *)
+    -> EXTERN: tests/rng.h:(33,35) EVP_aes_256_ecb(void)
+    -> EXTERN: tests/rng.h:(34,3) handleErrors(void)
+    -> EXTERN: tests/rng.h:(36,11) EVP_EncryptUpdate(EVP_CIPHER_CTX *, unsigned char *, int *, const unsigned char *, int)
+    -> EXTERN: tests/rng.h:(37,3) handleErrors(void)
+    -> EXTERN: tests/rng.h:(40,2) EVP_CIPHER_CTX_free(EVP_CIPHER_CTX *)
+  -> EXTERN: (48,4) memcpy(void *__restrict__, const void *__restrict__, size_t)
+  -> EXTERN: (52,4) memcpy(void *__restrict__, const void *__restrict__, size_t)
+  -> INLINE: (56,2) AES256_CTR_DRBG_Update(unsigned char *, unsigned char *, unsigned char *) (isz = 113) (sz = 122)
+    -> INLINE (MANUAL): (79,3) AES256_ECB(unsigned char *, unsigned char *, unsigned char *) (isz = 28) (sz = 37)
+      -> EXTERN: tests/rng.h:(31,14) EVP_CIPHER_CTX_new(void)
+      -> EXTERN: tests/rng.h:(31,37) handleErrors(void)
+      -> EXTERN: tests/rng.h:(33,11) EVP_EncryptInit_ex(EVP_CIPHER_CTX *, const EVP_CIPHER *, ENGINE *, const unsigned char *, const unsigned char *)
+      -> EXTERN: tests/rng.h:(33,35) EVP_aes_256_ecb(void)
+      -> EXTERN: tests/rng.h:(34,3) handleErrors(void)
+      -> EXTERN: tests/rng.h:(36,11) EVP_EncryptUpdate(EVP_CIPHER_CTX *, unsigned char *, int *, const unsigned char *, int)
+      -> EXTERN: tests/rng.h:(37,3) handleErrors(void)
+      -> EXTERN: tests/rng.h:(40,2) EVP_CIPHER_CTX_free(EVP_CIPHER_CTX *)
+    -> EXTERN: (84,2) memcpy(void *__restrict__, const void *__restrict__, size_t)
+    -> EXTERN: (85,2) memcpy(void *__restrict__, const void *__restrict__, size_t)
+
+
+    Report from: Loop nest, Vector & Auto-parallelization optimizations [loop, vec, par]
+
+
+LOOP BEGIN at tests/rng.c(36,2)
+   remark #15521: loop was not vectorized: loop control variable was not identified. Explicitly compute the iteration count before executing the loop or try using canonical loop form from OpenMP specification
+
+   LOOP BEGIN at tests/rng.c(38,3)
+      remark #15520: loop was not vectorized: loop with multiple exits cannot be vectorized unless it meets search loop idiom criteria   [ tests/rng.c(40,5) ]
+   LOOP END
+LOOP END
+
+LOOP BEGIN at tests/rng.c(68,2) inlined into tests/rng.c(56,2)
+   remark #25096: Loop Interchange not done due to: Imperfect Loop Nest (Either at Source or due to other Compiler Transformations)
+   remark #25452: Original Order found to be proper, but by a close margin
+   remark #15382: vectorization support: call to function EVP_CIPHER_CTX_new(void) cannot be vectorized   [ tests/rng.h(31,14) ]
+   remark #15382: vectorization support: call to function handleErrors(void) cannot be vectorized   [ tests/rng.h(31,37) ]
+   remark #15382: vectorization support: call to function EVP_aes_256_ecb(void) cannot be vectorized   [ tests/rng.h(33,35) ]
+   remark #15382: vectorization support: call to function EVP_EncryptInit_ex(EVP_CIPHER_CTX *, const EVP_CIPHER *, ENGINE *, const unsigned char *, const unsigned char *) cannot be vectorized   [ tests/rng.h(33,11) ]
+   remark #15382: vectorization support: call to function handleErrors(void) cannot be vectorized   [ tests/rng.h(34,3) ]
+   remark #15382: vectorization support: call to function EVP_EncryptUpdate(EVP_CIPHER_CTX *, unsigned char *, int *, const unsigned char *, int) cannot be vectorized   [ tests/rng.h(36,11) ]
+   remark #15382: vectorization support: call to function handleErrors(void) cannot be vectorized   [ tests/rng.h(37,3) ]
+   remark #15382: vectorization support: call to function EVP_CIPHER_CTX_free(EVP_CIPHER_CTX *) cannot be vectorized   [ tests/rng.h(40,2) ]
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization
+   remark #15346: vector dependence: assumed OUTPUT dependence between *(&DRBG_ctx+j+32) (72:5) and temp[i*16] (36:11)
+   remark #15346: vector dependence: assumed OUTPUT dependence between temp[i*16] (36:11) and *(&DRBG_ctx+j+32) (72:5)
+
+   LOOP BEGIN at tests/rng.c(70,3) inlined into tests/rng.c(56,2)
+      remark #15520: loop was not vectorized: loop with multiple exits cannot be vectorized unless it meets search loop idiom criteria   [ tests/rng.c(72,5) ]
+   LOOP END
+LOOP END
+
+    Report from: Code generation optimizations [cg]
+
+tests/rng.c(48,4):remark #34014: optimization advice for memcpy: increase the destination's alignment to 16 (and use __assume_aligned) to increase the width of stores
+tests/rng.c(48,4):remark #34000: call to memcpy implemented inline with loads and stores with proven source (alignment, offset): (16, 0), and destination (alignment, offset): (1, 0)
+tests/rng.c(52,4):remark #34014: optimization advice for memcpy: increase the destination's alignment to 16 (and use __assume_aligned) to speed up library implementation
+tests/rng.c(52,4):remark #34026: call to memcpy implemented as a call to optimized library version
+tests/rng.c(84,2):remark #34014: optimization advice for memcpy: increase the destination's alignment to 16 (and use __assume_aligned) to increase the width of stores
+tests/rng.c(84,2):remark #34000: call to memcpy implemented inline with loads and stores with proven source (alignment, offset): (16, 0), and destination (alignment, offset): (4, 0)
+tests/rng.c(85,2):remark #34014: optimization advice for memcpy: increase the destination's alignment to 16 (and use __assume_aligned) to increase the width of stores
+tests/rng.c(85,2):remark #34000: call to memcpy implemented inline with loads and stores with proven source (alignment, offset): (16, 0), and destination (alignment, offset): (4, 0)
+tests/rng.c(32,56):remark #34051: REGISTER ALLOCATION : [randombytes] tests/rng.c:32
+
+    Hardware registers
+        Reserved     :    2[ rsp rip]
+        Available    :   39[ rax rdx rcx rbx rbp rsi rdi r8-r15 mm0-mm7 zmm0-zmm15]
+        Callee-save  :    6[ rbx rbp r12-r15]
+        Assigned     :   13[ rax rdx rcx rbx rsi rdi r8 r12-r15 zmm0-zmm1]
+        
+    Routine temporaries
+        Total         :      72
+            Global    :      36
+            Local     :      36
+        Regenerable   :      24
+        Spilled       :       5
+        
+    Routine stack
+        Variables     :      72 bytes*
+            Reads     :       4 [9.61e-01 ~ 1.0%]
+            Writes    :       0 [0.00e+00 ~ 0.0%]
+        Spills        :       8 bytes*
+            Reads     :       2 [5.15e-01 ~ 0.5%]
+            Writes    :       1 [5.15e-01 ~ 0.5%]
+    
+    Notes
+    
+        *Non-overlapping variables and spills may share stack space,
+         so the total stack size might be less than this.
+    
+
+===========================================================================
+
+Begin optimization report for: AES256_CTR_DRBG_Update(unsigned char *, unsigned char *, unsigned char *)
+
+    Report from: Interprocedural optimizations [ipo]
+
+INLINE REPORT: (AES256_CTR_DRBG_Update(unsigned char *, unsigned char *, unsigned char *)) [3/4=75.0%] tests/rng.c(65,42)
+  -> INLINE (MANUAL): (79,3) AES256_ECB(unsigned char *, unsigned char *, unsigned char *) (isz = 28) (sz = 37)
+    -> EXTERN: tests/rng.h:(31,14) EVP_CIPHER_CTX_new(void)
+    -> EXTERN: tests/rng.h:(31,37) handleErrors(void)
+    -> EXTERN: tests/rng.h:(33,11) EVP_EncryptInit_ex(EVP_CIPHER_CTX *, const EVP_CIPHER *, ENGINE *, const unsigned char *, const unsigned char *)
+    -> EXTERN: tests/rng.h:(33,35) EVP_aes_256_ecb(void)
+    -> EXTERN: tests/rng.h:(34,3) handleErrors(void)
+    -> EXTERN: tests/rng.h:(36,11) EVP_EncryptUpdate(EVP_CIPHER_CTX *, unsigned char *, int *, const unsigned char *, int)
+    -> EXTERN: tests/rng.h:(37,3) handleErrors(void)
+    -> EXTERN: tests/rng.h:(40,2) EVP_CIPHER_CTX_free(EVP_CIPHER_CTX *)
+  -> EXTERN: (84,2) memcpy(void *__restrict__, const void *__restrict__, size_t)
+  -> EXTERN: (85,2) memcpy(void *__restrict__, const void *__restrict__, size_t)
+
+
+    Report from: Loop nest, Vector & Auto-parallelization optimizations [loop, vec, par]
+
+
+LOOP BEGIN at tests/rng.c(68,2)
+   remark #15382: vectorization support: call to function EVP_CIPHER_CTX_new(void) cannot be vectorized   [ tests/rng.h(31,14) ]
+   remark #15382: vectorization support: call to function handleErrors(void) cannot be vectorized   [ tests/rng.h(31,37) ]
+   remark #15382: vectorization support: call to function EVP_aes_256_ecb(void) cannot be vectorized   [ tests/rng.h(33,35) ]
+   remark #15382: vectorization support: call to function EVP_EncryptInit_ex(EVP_CIPHER_CTX *, const EVP_CIPHER *, ENGINE *, const unsigned char *, const unsigned char *) cannot be vectorized   [ tests/rng.h(33,11) ]
+   remark #15382: vectorization support: call to function handleErrors(void) cannot be vectorized   [ tests/rng.h(34,3) ]
+   remark #15382: vectorization support: call to function EVP_EncryptUpdate(EVP_CIPHER_CTX *, unsigned char *, int *, const unsigned char *, int) cannot be vectorized   [ tests/rng.h(36,11) ]
+   remark #15382: vectorization support: call to function handleErrors(void) cannot be vectorized   [ tests/rng.h(37,3) ]
+   remark #15382: vectorization support: call to function EVP_CIPHER_CTX_free(EVP_CIPHER_CTX *) cannot be vectorized   [ tests/rng.h(40,2) ]
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization
+   remark #15346: vector dependence: assumed ANTI dependence between V[j] (71:4) and V[j] (74:5)
+   remark #15346: vector dependence: assumed FLOW dependence between V[j] (74:5) and V[j] (71:4)
+
+   LOOP BEGIN at tests/rng.c(70,3)
+      remark #15520: loop was not vectorized: loop with multiple exits cannot be vectorized unless it meets search loop idiom criteria   [ tests/rng.c(72,5) ]
+   LOOP END
+LOOP END
+
+LOOP BEGIN at tests/rng.c(82,3)
+   remark #15388: vectorization support: reference temp[i] has aligned access   [ tests/rng.c(83,4) ]
+   remark #15388: vectorization support: reference temp[i] has aligned access   [ tests/rng.c(83,4) ]
+   remark #15389: vectorization support: reference provided_data[i] has unaligned access   [ tests/rng.c(83,15) ]
+   remark #15381: vectorization support: unaligned access used inside loop body
+   remark #15305: vectorization support: vector length 16
+   remark #15427: loop was completely unrolled
+   remark #15399: vectorization support: unroll factor set to 3
+   remark #15309: vectorization support: normalized vectorization overhead 0.143
+   remark #15300: LOOP WAS VECTORIZED
+   remark #15448: unmasked aligned unit stride loads: 1 
+   remark #15449: unmasked aligned unit stride stores: 1 
+   remark #15450: unmasked unaligned unit stride loads: 1 
+   remark #15475: --- begin vector cost summary ---
+   remark #15476: scalar cost: 7 
+   remark #15477: vector cost: 0.430 
+   remark #15478: estimated potential speedup: 14.000 
+   remark #15488: --- end vector cost summary ---
+LOOP END
+
+    Report from: Code generation optimizations [cg]
+
+tests/rng.c(84,2):remark #34014: optimization advice for memcpy: increase the destination's alignment to 16 (and use __assume_aligned) to increase the width of stores
+tests/rng.c(84,2):remark #34000: call to memcpy implemented inline with loads and stores with proven source (alignment, offset): (16, 0), and destination (alignment, offset): (1, 0)
+tests/rng.c(85,2):remark #34014: optimization advice for memcpy: increase the destination's alignment to 16 (and use __assume_aligned) to increase the width of stores
+tests/rng.c(85,2):remark #34000: call to memcpy implemented inline with loads and stores with proven source (alignment, offset): (16, 0), and destination (alignment, offset): (1, 0)
+tests/rng.c(65,42):remark #34051: REGISTER ALLOCATION : [AES256_CTR_DRBG_Update] tests/rng.c:65
+
+    Hardware registers
+        Reserved     :    2[ rsp rip]
+        Available    :   39[ rax rdx rcx rbx rbp rsi rdi r8-r15 mm0-mm7 zmm0-zmm15]
+        Callee-save  :    6[ rbx rbp r12-r15]
+        Assigned     :   14[ rax rdx rcx rbx rsi rdi r8 r12-r15 zmm0-zmm2]
+        
+    Routine temporaries
+        Total         :      50
+            Global    :      23
+            Local     :      27
+        Regenerable   :       8
+        Spilled       :       6
+        
+    Routine stack
+        Variables     :      52 bytes*
+            Reads     :       6 [2.05e+01 ~ 20.5%]
+            Writes    :       3 [2.00e+01 ~ 20.0%]
+        Spills        :       8 bytes*
+            Reads     :       1 [1.58e-01 ~ 0.2%]
+            Writes    :       1 [1.58e-01 ~ 0.2%]
+    
+    Notes
+    
+        *Non-overlapping variables and spills may share stack space,
+         so the total stack size might be less than this.
+    
+
+===========================================================================
+
+Begin optimization report for: randombytes_init(unsigned char *, unsigned char *, int)
+
+    Report from: Interprocedural optimizations [ipo]
+
+INLINE REPORT: (randombytes_init(unsigned char *, unsigned char *, int)) [4/4=100.0%] tests/rng.c(17,41)
+  -> EXTERN: (21,2) memcpy(void *__restrict__, const void *__restrict__, size_t)
+  -> EXTERN: (25,2) memset(void *, int, size_t)
+  -> EXTERN: (26,2) memset(void *, int, size_t)
+  -> INLINE: (27,2) AES256_CTR_DRBG_Update(unsigned char *, unsigned char *, unsigned char *) (isz = 113) (sz = 122)
+    -> INLINE (MANUAL): (79,3) AES256_ECB(unsigned char *, unsigned char *, unsigned char *) (isz = 28) (sz = 37)
+      -> EXTERN: tests/rng.h:(31,14) EVP_CIPHER_CTX_new(void)
+      -> EXTERN: tests/rng.h:(31,37) handleErrors(void)
+      -> EXTERN: tests/rng.h:(33,11) EVP_EncryptInit_ex(EVP_CIPHER_CTX *, const EVP_CIPHER *, ENGINE *, const unsigned char *, const unsigned char *)
+      -> EXTERN: tests/rng.h:(33,35) EVP_aes_256_ecb(void)
+      -> EXTERN: tests/rng.h:(34,3) handleErrors(void)
+      -> EXTERN: tests/rng.h:(36,11) EVP_EncryptUpdate(EVP_CIPHER_CTX *, unsigned char *, int *, const unsigned char *, int)
+      -> EXTERN: tests/rng.h:(37,3) handleErrors(void)
+      -> EXTERN: tests/rng.h:(40,2) EVP_CIPHER_CTX_free(EVP_CIPHER_CTX *)
+    -> EXTERN: (84,2) memcpy(void *__restrict__, const void *__restrict__, size_t)
+    -> EXTERN: (85,2) memcpy(void *__restrict__, const void *__restrict__, size_t)
+
+
+    Report from: Loop nest, Vector & Auto-parallelization optimizations [loop, vec, par]
+
+
+LOOP BEGIN at tests/rng.c(23,3)
+   remark #15388: vectorization support: reference seed_material[i] has aligned access   [ tests/rng.c(24,4) ]
+   remark #15388: vectorization support: reference seed_material[i] has aligned access   [ tests/rng.c(24,4) ]
+   remark #15389: vectorization support: reference personalization_string[i] has unaligned access   [ tests/rng.c(24,24) ]
+   remark #15381: vectorization support: unaligned access used inside loop body
+   remark #15305: vectorization support: vector length 16
+   remark #15427: loop was completely unrolled
+   remark #15399: vectorization support: unroll factor set to 3
+   remark #15309: vectorization support: normalized vectorization overhead 0.143
+   remark #15300: LOOP WAS VECTORIZED
+   remark #15448: unmasked aligned unit stride loads: 1 
+   remark #15449: unmasked aligned unit stride stores: 1 
+   remark #15450: unmasked unaligned unit stride loads: 1 
+   remark #15475: --- begin vector cost summary ---
+   remark #15476: scalar cost: 7 
+   remark #15477: vector cost: 0.430 
+   remark #15478: estimated potential speedup: 14.000 
+   remark #15488: --- end vector cost summary ---
+LOOP END
+
+LOOP BEGIN at tests/rng.c(68,2) inlined into tests/rng.c(27,2)
+   remark #25096: Loop Interchange not done due to: Imperfect Loop Nest (Either at Source or due to other Compiler Transformations)
+   remark #25452: Original Order found to be proper, but by a close margin
+   remark #15382: vectorization support: call to function EVP_CIPHER_CTX_new(void) cannot be vectorized   [ tests/rng.h(31,14) ]
+   remark #15382: vectorization support: call to function handleErrors(void) cannot be vectorized   [ tests/rng.h(31,37) ]
+   remark #15382: vectorization support: call to function EVP_aes_256_ecb(void) cannot be vectorized   [ tests/rng.h(33,35) ]
+   remark #15382: vectorization support: call to function EVP_EncryptInit_ex(EVP_CIPHER_CTX *, const EVP_CIPHER *, ENGINE *, const unsigned char *, const unsigned char *) cannot be vectorized   [ tests/rng.h(33,11) ]
+   remark #15382: vectorization support: call to function handleErrors(void) cannot be vectorized   [ tests/rng.h(34,3) ]
+   remark #15382: vectorization support: call to function EVP_EncryptUpdate(EVP_CIPHER_CTX *, unsigned char *, int *, const unsigned char *, int) cannot be vectorized   [ tests/rng.h(36,11) ]
+   remark #15382: vectorization support: call to function handleErrors(void) cannot be vectorized   [ tests/rng.h(37,3) ]
+   remark #15382: vectorization support: call to function EVP_CIPHER_CTX_free(EVP_CIPHER_CTX *) cannot be vectorized   [ tests/rng.h(40,2) ]
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization
+   remark #15346: vector dependence: assumed OUTPUT dependence between *(&DRBG_ctx+j+32) (72:5) and temp[i*16] (36:11)
+   remark #15346: vector dependence: assumed OUTPUT dependence between temp[i*16] (36:11) and *(&DRBG_ctx+j+32) (72:5)
+
+   LOOP BEGIN at tests/rng.c(70,3) inlined into tests/rng.c(27,2)
+      remark #15520: loop was not vectorized: loop with multiple exits cannot be vectorized unless it meets search loop idiom criteria   [ tests/rng.c(72,5) ]
+   LOOP END
+LOOP END
+
+LOOP BEGIN at tests/rng.c(82,3) inlined into tests/rng.c(27,2)
+   remark #15388: vectorization support: reference temp[i] has aligned access   [ tests/rng.c(83,4) ]
+   remark #15388: vectorization support: reference temp[i] has aligned access   [ tests/rng.c(83,4) ]
+   remark #15388: vectorization support: reference seed_material[i] has aligned access   [ tests/rng.c(27,25) ]
+   remark #15305: vectorization support: vector length 16
+   remark #15427: loop was completely unrolled
+   remark #15399: vectorization support: unroll factor set to 3
+   remark #15300: LOOP WAS VECTORIZED
+   remark #15448: unmasked aligned unit stride loads: 2 
+   remark #15449: unmasked aligned unit stride stores: 1 
+   remark #15475: --- begin vector cost summary ---
+   remark #15476: scalar cost: 7 
+   remark #15477: vector cost: 0.310 
+   remark #15478: estimated potential speedup: 22.400 
+   remark #15488: --- end vector cost summary ---
+LOOP END
+
+    Report from: Code generation optimizations [cg]
+
+tests/rng.c(21,2):remark #34014: optimization advice for memcpy: increase the source's alignment to 16 (and use __assume_aligned) to increase the width of loads
+tests/rng.c(21,2):remark #34000: call to memcpy implemented inline with loads and stores with proven source (alignment, offset): (1, 0), and destination (alignment, offset): (16, 0)
+tests/rng.c(25,2):remark #34014: optimization advice for memset: increase the destination's alignment to 16 (and use __assume_aligned) to increase the width of stores
+tests/rng.c(25,2):remark #34000: call to memset implemented inline with stores with proven (alignment, offset): (4, 0)
+tests/rng.c(26,2):remark #34014: optimization advice for memset: increase the destination's alignment to 16 (and use __assume_aligned) to increase the width of stores
+tests/rng.c(26,2):remark #34000: call to memset implemented inline with stores with proven (alignment, offset): (4, 0)
+tests/rng.c(84,2):remark #34014: optimization advice for memcpy: increase the destination's alignment to 16 (and use __assume_aligned) to increase the width of stores
+tests/rng.c(84,2):remark #34000: call to memcpy implemented inline with loads and stores with proven source (alignment, offset): (16, 0), and destination (alignment, offset): (4, 0)
+tests/rng.c(85,2):remark #34014: optimization advice for memcpy: increase the destination's alignment to 16 (and use __assume_aligned) to increase the width of stores
+tests/rng.c(85,2):remark #34000: call to memcpy implemented inline with loads and stores with proven source (alignment, offset): (16, 0), and destination (alignment, offset): (4, 0)
+tests/rng.c(17,41):remark #34051: REGISTER ALLOCATION : [randombytes_init] tests/rng.c:17
+
+    Hardware registers
+        Reserved     :    2[ rsp rip]
+        Available    :   39[ rax rdx rcx rbx rbp rsi rdi r8-r15 mm0-mm7 zmm0-zmm15]
+        Callee-save  :    6[ rbx rbp r12-r15]
+        Assigned     :   14[ rax rdx rcx rsi rdi r8 r12-r15 zmm0-zmm3]
+        
+    Routine temporaries
+        Total         :      56
+            Global    :      28
+            Local     :      28
+        Regenerable   :      13
+        Spilled       :       4
+        
+    Routine stack
+        Variables     :     100 bytes*
+            Reads     :       6 [2.25e+01 ~ 22.5%]
+            Writes    :       9 [2.27e+01 ~ 22.7%]
+        Spills        :       0 bytes*
+            Reads     :       0 [0.00e+00 ~ 0.0%]
+            Writes    :       0 [0.00e+00 ~ 0.0%]
+    
+    Notes
+    
+        *Non-overlapping variables and spills may share stack space,
+         so the total stack size might be less than this.
+    
+
+===========================================================================
