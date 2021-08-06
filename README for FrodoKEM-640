@@ -12,6 +12,7 @@ $ ./frodo/test_KEM
 
 Or execute the following to run the KATs:
 
+KATs files are to be added
 $ ./frodo/PQCtestKAT_kem
 
 By default, AES128 is used to generate the matrix "A", OpenSSL's AES implementation
